@@ -24,11 +24,74 @@ not need the roadmap-plus-FSM workflow.
 aharness install @aharness/codeflow
 ```
 
-## FSM Composition
+## Install Process Skills
 
-Wrapper FSM packages should depend on `@aharness/codeflow` and compose the
-exported FSM module directly. Do not reuse the aharness install command
-metadata as a composition API.
+Install the process skills for pre-FSM work with `npx skills`:
+
+```sh
+npx skills add Alfredvc/codeflow
+```
+
+Do not install `internal-skills/` with `npx skills`; aharness loads those only
+inside the FSM.
+
+## Workflow
+
+Codeflow assumes the idea has been developed before the FSM starts. A typical
+flow is:
+
+1. Start with a loose discussion with the agent about the idea. Ask it to
+   investigate, inspect code, research constraints, and ask questions until the
+   direction feels worth capturing.
+2. Use `writing-ideas` to capture the approved idea in `docs/ideas/`.
+3. Use `grill-me` to challenge the ideafile, remove ambiguity, and
+   settle scope, behavior, constraints, acceptance criteria, and important
+   decisions.
+4. Use `writing-specs` to turn the grilled idea into a design spec in
+   `docs/specs/`. This skill dispatches a review agent with `reviewing-specs`.
+5. Clear the session with `/clear`, then ask the agent to use
+   `writing-implementation-roadmaps` to write an implementation roadmap from
+   the spec. The roadmap skill dispatches a fresh roadmap review agent.
+6. Run `aharness run recipe-driven-development` with the roadmap path.
+   The FSM writes the detailed plan for the current slice internally, reviews
+   it, executes it, verifies it, commits the accepted slice, and advances until
+   the roadmap is complete.
+
+## Command
+
+### `recipe-driven-development`
+
+Inputs:
+
+- `--roadmap-path <path>`: implementation roadmap file to resume or execute.
+- `--worktree <boolean>`: create and use a temporary git worktree under `/tmp`.
+  Defaults to `false`.
+
+Repair and recovery budgets are internal safety guards. When they are exhausted,
+the FSM records a durable restart handoff instead of continuing to improvise.
+
+## Bundled Skills
+
+The package ships these user-facing process skills for work before the FSM is
+invoked:
+
+- `writing-ideas`: captures an approved idea as a short grounding document in
+  `docs/ideas/`.
+- `grill-me`: challenges the idea to resolve scope, behavior, constraints,
+  acceptance criteria, and decisions before writing a spec.
+- `writing-specs`: turns an approved and grilled idea into a design spec in
+  `docs/specs/`.
+- `reviewing-specs`: reviews design specs for weak assumptions, missing
+  research, edge cases, shortcuts, and product fit.
+- `writing-implementation-roadmaps`: decomposes a large spec or architecture
+  design into staged roadmap slices for the FSM.
+
+## Embedding This FSM
+
+If you want to call Codeflow from another aharness FSM, add
+`@aharness/codeflow` as a dependency and import the exported FSM module
+directly. The install command metadata is only for aharness CLI installation;
+it is not the API for embedding Codeflow in another FSM.
 
 ```json
 {
@@ -90,63 +153,3 @@ export default fsm.machine({
   },
 });
 ```
-
-## Workflow
-
-Codeflow assumes the idea has been developed before the FSM starts. A typical
-flow is:
-
-1. Start with a loose discussion with the agent about the idea. Ask it to
-   investigate, inspect code, research constraints, and ask questions until the
-   direction feels worth capturing.
-2. Use `writing-ideas` to capture the approved idea in `docs/ideas/`.
-3. Use `grill-me` to challenge the ideafile, remove ambiguity, and
-   settle scope, behavior, constraints, acceptance criteria, and important
-   decisions.
-4. Use `writing-specs` to turn the grilled idea into a design spec in
-   `docs/specs/`. This skill dispatches a review agent with `reviewing-specs`.
-5. Clear the session with `/clear`, then ask the agent to use
-   `writing-implementation-roadmaps` to write an implementation roadmap from
-   the spec. The roadmap skill dispatches a fresh roadmap review agent.
-6. Run `aharness run recipe-driven-development` with the roadmap path.
-   The FSM writes the detailed plan for the current slice internally, reviews
-   it, executes it, verifies it, commits the accepted slice, and advances until
-   the roadmap is complete.
-
-## Command
-
-### `recipe-driven-development`
-
-Inputs:
-
-- `--roadmap-path <path>`: implementation roadmap file to resume or execute.
-- `--worktree <boolean>`: create and use a temporary git worktree under `/tmp`.
-  Defaults to `false`.
-
-Repair and recovery budgets are internal safety guards. When they are exhausted,
-the FSM records a durable restart handoff instead of continuing to improvise.
-
-## Bundled Skills
-
-The package ships these user-facing process skills for work before the FSM is
-invoked:
-
-- `writing-ideas`: captures an approved idea as a short grounding document in
-  `docs/ideas/`.
-- `grill-me`: challenges the idea to resolve scope, behavior, constraints,
-  acceptance criteria, and decisions before writing a spec.
-- `writing-specs`: turns an approved and grilled idea into a design spec in
-  `docs/specs/`.
-- `reviewing-specs`: reviews design specs for weak assumptions, missing
-  research, edge cases, shortcuts, and product fit.
-- `writing-implementation-roadmaps`: decomposes a large spec or architecture
-  design into staged roadmap slices for the FSM.
-
-Install the process skills with `npx skills`:
-
-```sh
-npx skills add Alfredvc/codeflow
-```
-
-Do not install `internal-skills/` with `npx skills`; aharness loads those only
-inside the FSM.
