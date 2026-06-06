@@ -1,0 +1,4 @@
+interface:
+  display_name: "Writing Plans"
+  short_description: "Write bounded slice implementation plans."
+  default_prompt: "Use $writing-plans to write a bounded implementation plan for the next approved slice."

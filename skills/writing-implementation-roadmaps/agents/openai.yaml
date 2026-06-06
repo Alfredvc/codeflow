@@ -1,0 +1,4 @@
+interface:
+  display_name: "Writing Implementation Roadmaps"
+  short_description: "Decompose large work into staged roadmaps."
+  default_prompt: "Write an implementation roadmap for this spec and architecture."

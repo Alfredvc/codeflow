@@ -1,0 +1,55 @@
+{
+  "name": "@aharness/codeflow",
+  "version": "0.1.0",
+  "description": "Codeflow FSM package for recipe-driven development workflows.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "fsms",
+    "internal-skills",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./recipe-driven-development.fsm.js": "./fsms/recipe-driven-development.fsm.ts"
+  },
+  "scripts": {
+    "start": "aharness run ./fsms/recipe-driven-development.fsm.ts",
+    "verify": "aharness verify ./fsms/recipe-driven-development.fsm.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --max-warnings 0",
+    "lint:fix": "oxlint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "pack:dry-run": "npm pack --dry-run",
+    "verify:release": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run verify && pnpm run pack:dry-run"
+  },
+  "dependencies": {
+    "@aharness/core": ">=0.0.0 <1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "oxlint": "^1.64.0",
+    "oxlint-tsgolint": "^0.22.1",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "aharness": {
+    "package": {
+      "commands": {
+        "recipe-driven-development": {
+          "entry": "fsms/recipe-driven-development.fsm.ts",
+          "description": "Execute an implementation roadmap slice-by-slice with planning, review, verification, and commits."
+        }
+      }
+    }
+  }
+}
