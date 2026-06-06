@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "Codeflow FSM package for recipe-driven development workflows.",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alfredvc/codeflow"
+  },
   "type": "module",
   "packageManager": "pnpm@9.15.4",
   "engines": {
