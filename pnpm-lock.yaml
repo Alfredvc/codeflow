@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@aharness/core':
-        specifier: '>=0.0.0 <1.0.0'
-        version: 0.1.0(zod@4.4.3)
+        specifier: '>=0.1.1 <1.0.0'
+        version: 0.1.1(zod@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.19.0
@@ -30,8 +30,8 @@ importers:
 
 packages:
 
-  '@aharness/core@0.1.0':
-    resolution: {integrity: sha512-FFXCi+XQRjMmHjJC6IIgwTx+H8C4IVbwJ0flErS87PjtX0HFOeivzxJvcihQU3zuZWw7DmIl9i/3v5wlnduxAQ==}
+  '@aharness/core@0.1.1':
+    resolution: {integrity: sha512-dfHQhdsZHotS4OInrYsrbW3AbpolFc6lyC8IWo2US3RFCcmqLX61IwdahyEth+g38U9T71YY4qOGu4cI57gUiw==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -876,7 +876,7 @@ packages:
 
 snapshots:
 
-  '@aharness/core@0.1.0(zod@4.4.3)':
+  '@aharness/core@0.1.1(zod@4.4.3)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(zod@4.4.3)
       '@pnpm/tabtab': 0.5.4

@@ -96,7 +96,7 @@ it is not the API for embedding Codeflow in another FSM.
 ```json
 {
   "dependencies": {
-    "@aharness/core": "^0.1.0",
+    "@aharness/core": "^0.1.1",
     "@aharness/codeflow": "^0.1.0"
   }
 }

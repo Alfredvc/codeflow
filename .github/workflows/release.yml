@@ -34,6 +34,8 @@ jobs:
           }
           NODE
       - run: pnpm run verify:release
+        env:
+          CI: "true"
       - name: Pack @aharness/codeflow
         id: pack-codeflow
         run: |

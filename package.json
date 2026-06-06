@@ -21,16 +21,17 @@
   "scripts": {
     "start": "aharness run ./fsms/recipe-driven-development.fsm.ts",
     "verify": "aharness verify ./fsms/recipe-driven-development.fsm.ts",
+    "verify:ci": "CI=true aharness verify ./fsms/recipe-driven-development.fsm.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint --max-warnings 0",
     "lint:fix": "oxlint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "pack:dry-run": "npm pack --dry-run",
-    "verify:release": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run verify && pnpm run pack:dry-run"
+    "verify:release": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run verify:ci && pnpm run pack:dry-run"
   },
   "dependencies": {
-    "@aharness/core": ">=0.0.0 <1.0.0"
+    "@aharness/core": ">=0.1.1 <1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.0",
